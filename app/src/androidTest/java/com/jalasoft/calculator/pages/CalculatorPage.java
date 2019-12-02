@@ -1,5 +1,6 @@
 package com.jalasoft.calculator.pages;
 
+import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -8,6 +9,9 @@ import com.jalasoft.calculator.R;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
@@ -19,6 +23,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class CalculatorPage {
+
+    Map<String, ViewInteraction> buttons = new HashMap<String, androidx.test.espresso.ViewInteraction>();
 
     @Rule
     public ActivityTestRule<MainActivity> activityRule
@@ -97,172 +103,20 @@ public class CalculatorPage {
     }
 
     public void pressButton(String button){
-        switch (button){
-            case "1":
-                pressButton1();
-                break;
-            case "2":
-                pressButton2();
-                break;
-            case "3":
-                pressButton3();
-                break;
-            case "4":
-                pressButton4();
-                break;
-            case "5":
-                pressButton5();
-                break;
-            case "6":
-                pressButton6();
-                break;
-            case "7":
-                pressButton7();
-                break;
-            case "8":
-                pressButton8();
-                break;
-            case "9":
-                pressButton9();
-                break;
-            case "0":
-                pressButton0();
-                break;
+        buttons.put("1", onView(withId(R.id.button1)).perform(click()));
+        buttons.put("2", onView(withId(R.id.button2)).perform(click()));
+        buttons.put("3", onView(withId(R.id.button3)).perform(click()));
+        buttons.put("4", onView(withId(R.id.button4)).perform(click()));
+        buttons.put("5", onView(withId(R.id.button5)).perform(click()));
+        buttons.put("6", onView(withId(R.id.button6)).perform(click()));
+        buttons.put("7", onView(withId(R.id.button7)).perform(click()));
+        buttons.put("8", onView(withId(R.id.button8)).perform(click()));
+        buttons.put("9", onView(withId(R.id.button9)).perform(click()));
+        buttons.put("0", onView(withId(R.id.button0)).perform(click()));
+        buttons.get(button);
         }
-    }
 
     public void verifyNumberInTheScreen(String value){
         onView(ViewMatchers.withId(R.id.edt1)).check(matches(withText(value)));
-    }
-
-
-
-
-
-
-
-
-
-    @Test
-    public void homePage() {
-        onView(ViewMatchers.withId(R.id.edt1)).check(matches(withText("")));
-    }
-
-    @Test
-    public void addTwoNumbers() {
-
-        onView(withId(R.id.edt1))
-                .perform(clearText());
-
-        onView(withId(R.id.button1))
-                .perform(click());
-
-        onView(withId(R.id.buttonadd))
-                .perform(click());
-
-        onView(withId(R.id.button2))
-                .perform(click());
-
-        onView(withId(R.id.buttoneql))
-                 .perform(click());
-
-        onView(withId(R.id.edt1)).check(matches(withText("3.0")));
-    }
-
-    @Test
-    public void substractionTwoNumbers() {
-
-        onView(withId(R.id.edt1))
-                .perform(clearText());
-
-        onView(withId(R.id.button2))
-                .perform(click());
-
-        onView(withId(R.id.buttonsub))
-                .perform(click());
-
-        onView(withId(R.id.button1))
-                .perform(click());
-
-        onView(withId(R.id.buttoneql))
-                .perform(click());
-
-        onView(withId(R.id.edt1)).check(matches(withText("1.0")));
-    }
-
-    @Test
-    public void multiplicationTwoNumbers() {
-
-        onView(withId(R.id.edt1))
-                .perform(clearText());
-
-        onView(withId(R.id.button2))
-                .perform(click());
-
-        onView(withId(R.id.buttonmul))
-                .perform(click());
-
-        onView(withId(R.id.button1))
-                .perform(click());
-
-        onView(withId(R.id.buttoneql))
-                .perform(click());
-
-        onView(withId(R.id.edt1)).check(matches(withText("2.0")));
-    }
-
-    @Test
-    public void divisionTwoNumbers() {
-
-        onView(withId(R.id.edt1))
-                .perform(clearText());
-
-        onView(withId(R.id.button2))
-                .perform(click());
-
-        onView(withId(R.id.buttondiv))
-                .perform(click());
-
-        onView(withId(R.id.button1))
-                .perform(click());
-
-        onView(withId(R.id.buttoneql))
-                .perform(click());
-
-        onView(withId(R.id.edt1)).check(matches(withText("2.0")));
-    }
-
-    @Test
-    public void decimalDivisionTwoNumbers() {
-
-        onView(withId(R.id.edt1))
-                .perform(clearText());
-
-        onView(withId(R.id.button1))
-                .perform(click());
-
-        onView(withId(R.id.buttondiv))
-                .perform(click());
-
-        onView(withId(R.id.button3))
-                .perform(click());
-
-        onView(withId(R.id.buttoneql))
-                .perform(click());
-
-        onView(withId(R.id.edt1)).check(matches(withText("0.33333334")));
-    }
-
-    @Test
-    public void ButtonClear() {
-
-        onView(withId(R.id.edt1)).
-                perform(typeText("356"));
-
-        onView(withId(R.id.buttonC))
-                .perform(click());
-
-        onView(withId(R.id.edt1)).
-                check(matches(withText("")));
     }
 }
