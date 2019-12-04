@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+//dependencies {
+//    implementation group: 'io.cucumber', name: 'cucumber-java', version: '4.8.0'
+//    implementation group: 'io.cucumber', name: 'cucumber-testng', version: '4.8.0'
+//    implementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.8.0'
+//}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task runFeatures(type: Test) {
+    useTestNG()
+    options {
+        jvmArgs = ['-Dcucumber.options= --glue com.jalasoft' +
+                           '--plugin pretty ']
+    }
+    testLogging.showStandardStreams = true
+    scanForTestClasses = false
+    ignoreFailures = false
+    reports.html.enabled = false
+}
